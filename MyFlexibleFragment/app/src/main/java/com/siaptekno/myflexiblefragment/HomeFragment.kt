@@ -29,7 +29,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             val fragmentManager = parentFragmentManager
             fragmentManager.beginTransaction().apply {
                 replace(R.id.frame_container, categoryFragment, CategoryFragment::class.java.simpleName)
-//                addToBackStack(null)
+                addToBackStack(null)
                 commit()
             }
         }
