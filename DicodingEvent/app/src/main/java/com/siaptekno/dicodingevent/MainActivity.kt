@@ -1,6 +1,7 @@
 package com.siaptekno.dicodingevent
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -53,5 +54,25 @@ class MainActivity : AppCompatActivity() {
         // Navigation bar will show the fragment that is selected
         navView.setupWithNavController(navController)
 
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    navController.navigate(R.id.navigation_home)
+                    Log.d("Navigation", "Navigated to HomeFragment")
+                    true
+                }
+                R.id.navigation_upcoming -> {
+                    navController.navigate(R.id.navigation_upcoming)
+                    Log.d("Navigation", "Navigated to UpcomingFragment")
+                    true
+                }
+                R.id.navigation_finished -> {
+                    navController.navigate(R.id.navigation_finished)
+                    Log.d("Navigation", "Navigated to FinishedFragment")
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }
