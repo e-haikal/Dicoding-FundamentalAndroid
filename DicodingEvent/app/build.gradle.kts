@@ -54,6 +54,9 @@ dependencies {
     implementation (libs.retrofit2.retrofit)
     implementation (libs.squareup.converter.gson)
 
+    // OkHttp for networking
+    implementation(libs.logging.interceptor)
+
     // Glide for image loading
     implementation (libs.glide)
     annotationProcessor (libs.compiler)

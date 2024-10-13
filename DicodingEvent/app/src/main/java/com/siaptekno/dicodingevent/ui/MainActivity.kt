@@ -1,4 +1,4 @@
-package com.siaptekno.dicodingevent
+package com.siaptekno.dicodingevent.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.siaptekno.dicodingevent.R
 import com.siaptekno.dicodingevent.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
