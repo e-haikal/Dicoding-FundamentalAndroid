@@ -19,9 +19,12 @@ import retrofit2.http.*
 
 // Define the ApiService interface for API calls
 interface ApiService {
-    // Define a GET request to fetch event details using an event ID
-    @GET("events/{id}") // Specify the endpoint with a path parameter
+    // Define a GET request to fetch a list of events
+    @GET("events") // Specify the endpoint with a path parameter
+    // Define a query parameter for filtering active events
     fun getEvents(
-        @Path("id") id: String, // The event ID to retrieve
+        // Define query parameters
+        @Query("active") active: Int = 1,
+        @Query("limit") limit: Int = 40
     ): Call<Response> // Return a Call object for the API response
 }

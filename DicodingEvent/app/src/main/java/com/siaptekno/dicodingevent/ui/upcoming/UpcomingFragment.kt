@@ -5,56 +5,86 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.siaptekno.dicodingevent.R
+import com.siaptekno.dicodingevent.data.response.Response
+import com.siaptekno.dicodingevent.data.retrofit.ApiConfig
+import com.siaptekno.dicodingevent.databinding.FragmentUpcomingBinding
+import retrofit2.Call
+import retrofit2.Callback
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UpcomingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UpcomingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private  var _binding: FragmentUpcomingBinding? = null // Backing property
+    private val binding get() = _binding!! // Non-null assertion for access
+    private lateinit var adapter: UpcomingAdapter // Initialize in onCreateView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming, container, false)
+        // Inflate the binding
+        _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UpcomingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UpcomingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        fetchUpcomingEvents()
     }
+
+
+    private fun setupRecyclerView() {
+        // Set up RecyclerView
+        adapter = UpcomingAdapter()
+        // Set the layout manager for the RecyclerView
+        binding.rvUpcomingEvents.layoutManager = LinearLayoutManager(requireContext())
+        // Attach the adapter to the RecyclerView
+        binding.rvUpcomingEvents.adapter = adapter
+        // Add item decoration for a divider
+        val itemDecoration = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        binding.rvUpcomingEvents.addItemDecoration(itemDecoration)
+    }
+
+    private fun fetchUpcomingEvents() {
+        showLoading(true)
+        val client = ApiConfig.getApiService().getEvents(active = 1) // 1 for upcoming events
+        client.enqueue(object : Callback<Response> {
+            override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
+                showLoading(false)
+                if (response.isSuccessful) {
+                    val eventList = response.body()?.listEvents
+                    if (eventList != null) {
+                        adapter.submitList(eventList)
+                    }
+                } else {
+                    // Handle unsuccessful response
+                    showError("Failed to load events")
+                }
+
+            }
+
+            override fun onFailure(call: Call<Response>, t: Throwable) {
+                showLoading(false)
+                showError("Error: ${t.message}")
+            }
+        })
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Step 3c: Clear the binding reference
+    }
+
 }

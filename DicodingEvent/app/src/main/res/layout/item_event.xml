@@ -29,13 +29,15 @@
         tools:text="Sample Event Name" />
 
     <TextView
-        android:id="@+id/tvOwner"
+        android:id="@+id/tvEventDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxLines="3"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivEventImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvEventName"
         app:layout_constraintTop_toBottomOf="@+id/tvEventName"
-        tools:text="Owner Name" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Description of the event" />
 </androidx.constraintlayout.widget.ConstraintLayout>
