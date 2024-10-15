@@ -1,19 +1,6 @@
-/*
- * ApiService.kt
- *
- * This file defines the ApiService interface for making API calls using Retrofit.
- *
- * Key Components:
- * - Contains a method `getEvents()` to retrieve event details based on the provided event ID.
- * - Uses Retrofit annotations to define the HTTP method (GET) and path parameters.
- * - The method returns a Call object that encapsulates the HTTP response.
- *
- * Implement this interface in your networking code to interact with the API.
- */
-
 package com.siaptekno.dicodingevent.data.retrofit
 
-import com.siaptekno.dicodingevent.data.response.Response
+import com.siaptekno.dicodingevent.data.response.EventResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -26,5 +13,5 @@ interface ApiService {
         // Define query parameters
         @Query("active") active: Int = 1,
         @Query("limit") limit: Int = 40
-    ): Call<Response> // Return a Call object for the API response
+    ): Call<EventResponse> // Return a Call object for the API response
 }

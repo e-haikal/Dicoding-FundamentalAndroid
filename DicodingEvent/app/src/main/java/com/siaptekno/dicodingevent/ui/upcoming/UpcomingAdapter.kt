@@ -45,8 +45,4 @@ class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.MyViewHolder
 
         }
     }
-
-
-
-
 }

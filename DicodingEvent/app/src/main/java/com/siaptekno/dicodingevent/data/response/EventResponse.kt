@@ -2,7 +2,7 @@ package com.siaptekno.dicodingevent.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Response(
+data class EventResponse(
 
 	@field:SerializedName("listEvents")
 	val listEvents: List<ListEventsItem>,
