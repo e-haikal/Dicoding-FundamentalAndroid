@@ -1,4 +1,4 @@
-package com.siaptekno.dicodingevent.ui.upcoming
+package com.siaptekno.dicodingevent.ui.finished
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,13 +7,15 @@ import androidx.lifecycle.ViewModel
 import com.siaptekno.dicodingevent.data.response.EventResponse
 import com.siaptekno.dicodingevent.data.response.ListEventsItem
 import com.siaptekno.dicodingevent.data.retrofit.ApiConfig
+import com.siaptekno.dicodingevent.ui.upcoming.UpcomingViewModel
+import com.siaptekno.dicodingevent.ui.upcoming.UpcomingViewModel.Companion
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UpcomingViewModel : ViewModel() {
-    private val _upcomingEvents = MutableLiveData<List<ListEventsItem>>()
-    val upcomingEvents: LiveData<List<ListEventsItem>> = _upcomingEvents
+class FinishedViewModel : ViewModel() {
+    private val _finishedEvents = MutableLiveData<List<ListEventsItem>>()
+    val finishedEvents: LiveData<List<ListEventsItem>> = _finishedEvents
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -22,28 +24,27 @@ class UpcomingViewModel : ViewModel() {
         private const val TAG = "UpcomingViewModel"
     }
 
+
     init {
-        fetchUpcomingEvents()
+        fetchFinishedEvents()
     }
 
-    private fun fetchUpcomingEvents() {
+    fun fetchFinishedEvents() {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getEvents()
-
-        client.enqueue(object : Callback<EventResponse> {
+        val apiService = ApiConfig.getApiService()
+        apiService.getEvents(0, 40).enqueue(object : Callback<EventResponse> {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
-                    _upcomingEvents.value = response.body()?.listEvents
+                    _finishedEvents.value = response.body()?.listEvents
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(FinishedViewModel.TAG, "onFailure: ${response.message()}")
                 }
-
+                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
+                _finishedEvents.value = emptyList()
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }

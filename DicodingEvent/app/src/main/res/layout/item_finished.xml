@@ -12,7 +12,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/ivUpcomingEventImage"
+            android:id="@+id/ivFinishedEventImage"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
@@ -23,17 +23,17 @@
 
 
         <TextView
-            android:id="@+id/tvUpcomingEventName"
+            android:id="@+id/tvFinishedEventName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/ivUpcomingEventImage"
+            app:layout_constraintTop_toBottomOf="@id/ivFinishedEventImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingTop="8dp"
-            tools:text="Sample Upcoming Event Name" />
+            tools:text="Sample Finished Event Name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
