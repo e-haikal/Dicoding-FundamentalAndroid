@@ -10,15 +10,15 @@ import com.bumptech.glide.Glide
 import com.siaptekno.dicodingevent.R
 import com.siaptekno.dicodingevent.data.response.ListEventsItem
 
-class EventAdapter(
+class DetailEventAdapter(
     private val events: List<ListEventsItem>,
     private val itemClickListener: (ListEventsItem) -> Unit // Lambda function for click listener
-) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+) : RecyclerView.Adapter<DetailEventAdapter.EventViewHolder>() {
 
     // ViewHolder for holding view references
     class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val eventName: TextView = view.findViewById(R.id.tvEventName)
-        private val eventImage: ImageView = view.findViewById(R.id.ivEventImage)
+        private val eventName: TextView = view.findViewById(R.id.tvDetailEventName)
+        private val eventImage: ImageView = view.findViewById(R.id.ivDetailEventImage)
 
         // Bind event data to views
         fun bind(event: ListEventsItem, clickListener: (ListEventsItem) -> Unit) {
@@ -34,7 +34,7 @@ class EventAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_event, parent, false)
+            .inflate(R.layout.activity_detail_event, parent, false)
         return EventViewHolder(view)
     }
 
