@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         // Set up the app bar appBar to shows as menu, if ID not added here, it will show the back button
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished
+                R.id.navigation_upcoming, R.id.navigation_finished
             )
         )
         // Used to show Title in Action Bar match with the fragment that is displayed
@@ -55,13 +55,16 @@ class MainActivity : AppCompatActivity() {
         // Navigation bar will show the fragment that is selected
         navView.setupWithNavController(navController)
 
+
+        // Automatically navigate to "Upcoming Events" when the app starts
+        if (savedInstanceState == null) {
+            // This check ensures that the fragment is loaded only on the first launch
+            navController.navigate(R.id.navigation_upcoming)
+            Log.d("Navigation", "Defaulted to UpcomingFragment on app start")
+        }
+
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_home -> {
-                    navController.navigate(R.id.navigation_home)
-                    Log.d("Navigation", "Navigated to HomeFragment")
-                    true
-                }
                 R.id.navigation_upcoming -> {
                     navController.navigate(R.id.navigation_upcoming)
                     Log.d("Navigation", "Navigated to UpcomingFragment")

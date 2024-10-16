@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text Styles -->
+    <style name="Heading1">
+        <item name="android:textSize">@dimen/heading_h1</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Heading2">
+        <item name="android:textSize">@dimen/heading_h2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Heading3">
+        <item name="android:textSize">@dimen/heading_h3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BodyText">
+        <item name="android:textSize">@dimen/body_text</item>
+    </style>
+
+    <style name="SecondaryText">
+        <item name="android:textSize">@dimen/secondary_text</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="ButtonPrimary">
+        <item name="android:textSize">@dimen/button_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonSecondary">
+        <item name="android:textSize">@dimen/button_secondary</item>
+    </style>
+
+    <style name="SmallText">
+        <item name="android:textSize">@dimen/small_text</item>
+    </style>
+
+    <style name="Caption">
+        <item name="android:textSize">@dimen/caption</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+</resources>

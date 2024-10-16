@@ -36,6 +36,8 @@ class FinishedViewModel : ViewModel() {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 if (response.isSuccessful) {
                     _finishedEvents.value = response.body()?.listEvents
+                    Log.d(TAG, "Fetched finished events: $finishedEvents")
+
                 } else {
                     Log.e(FinishedViewModel.TAG, "onFailure: ${response.message()}")
                 }

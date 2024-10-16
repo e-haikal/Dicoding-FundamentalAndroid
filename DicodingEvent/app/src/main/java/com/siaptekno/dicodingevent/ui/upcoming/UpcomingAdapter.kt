@@ -1,5 +1,7 @@
 package com.siaptekno.dicodingevent.ui.upcoming
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,19 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.siaptekno.dicodingevent.data.response.ListEventsItem
 import com.siaptekno.dicodingevent.databinding.ItemUpcomingBinding
+import com.siaptekno.dicodingevent.ui.detail.DetailEventActivity // Make sure to import this
 
-class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class UpcomingAdapter(private val context: Context) : ListAdapter<ListEventsItem, UpcomingAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
     class MyViewHolder(val binding: ItemUpcomingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem?) {
             binding.tvUpcomingEventName.text = event?.name
-//            binding.tvUpcomingEventDescription.text = event?.description
 
-            // load image using Glide or Picasso
+            // Load image using Glide
             Glide.with(binding.ivUpcomingEventImage.context)
                 .load(event?.mediaCover)
                 .into(binding.ivUpcomingEventImage)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,18 +33,25 @@ class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.MyViewHolder
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+
+        // Handle item click
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, DetailEventActivity::class.java).apply {
+                putExtra("EVENT_ID", event.id) // Pass the event ID
+            }
+            context.startActivity(intent)
+        }
     }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>() {
             override fun areItemsTheSame(oldItem: ListEventsItem, newItem: ListEventsItem): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id // Compare event IDs
             }
 
             override fun areContentsTheSame(oldItem: ListEventsItem, newItem: ListEventsItem): Boolean {
-                return oldItem == newItem
+                return oldItem == newItem // Compare contents
             }
-
         }
     }
 }

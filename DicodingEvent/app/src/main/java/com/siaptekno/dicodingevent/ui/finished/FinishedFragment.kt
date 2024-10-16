@@ -8,25 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.siaptekno.dicodingevent.R
 import com.siaptekno.dicodingevent.databinding.FragmentFinishedBinding
-import com.siaptekno.dicodingevent.databinding.FragmentUpcomingBinding
-import com.siaptekno.dicodingevent.ui.upcoming.UpcomingAdapter
-import com.siaptekno.dicodingevent.ui.upcoming.UpcomingViewModel
 
 class FinishedFragment : Fragment() {
-    private lateinit var viewModel: FinishedViewModel
-    private lateinit var adapter: FinishedAdapter
     private var _binding: FragmentFinishedBinding? = null
     private val binding get() = _binding!!
-
-    companion object
-    {
-        private const val TAG = "FinishedFragment"
-    }
+    private lateinit var viewModel: FinishedViewModel
+    private lateinit var adapter: FinishedAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         return binding.root
     }
