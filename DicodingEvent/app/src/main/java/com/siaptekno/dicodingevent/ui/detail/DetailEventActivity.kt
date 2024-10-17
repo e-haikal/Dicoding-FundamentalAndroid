@@ -1,6 +1,9 @@
 package com.siaptekno.dicodingevent.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +14,10 @@ import com.bumptech.glide.Glide
 import com.siaptekno.dicodingevent.R
 import com.siaptekno.dicodingevent.databinding.ActivityDetailEventBinding
 
-class DetailEventActivity : AppCompatActivity() {
+class DetailEventActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var detailEventViewModel: DetailEventViewModel
     private lateinit var binding: ActivityDetailEventBinding
+    private var link: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +56,25 @@ class DetailEventActivity : AppCompatActivity() {
                 Glide.with(this)
                     .load(event.imageLogo)
                     .into(binding.ivDetailEventBanner)
+                link = event.link
             }
-
         }
 
+        val registerButton = binding.actionRegister
+        registerButton.setOnClickListener(this)
     }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.action_register -> {
+                // Handle register button click
+                link?.let { url ->
+                    val webPage: Uri = Uri.parse(url)
+                    val registerIntent = Intent(Intent.ACTION_VIEW, webPage)
+                    startActivity(registerIntent)
+                }
+            }
+        }
+    }
+
 }
