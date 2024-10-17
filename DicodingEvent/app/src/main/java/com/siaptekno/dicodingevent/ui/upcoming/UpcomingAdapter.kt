@@ -2,7 +2,6 @@ package com.siaptekno.dicodingevent.ui.upcoming
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.siaptekno.dicodingevent.data.response.ListEventsItem
 import com.siaptekno.dicodingevent.databinding.ItemUpcomingBinding
-import com.siaptekno.dicodingevent.ui.detail.DetailEventActivity // Make sure to import this
+import com.siaptekno.dicodingevent.ui.detail.DetailEventActivity
 
 class UpcomingAdapter(private val context: Context) : ListAdapter<ListEventsItem, UpcomingAdapter.MyViewHolder>(DIFF_CALLBACK) {
 

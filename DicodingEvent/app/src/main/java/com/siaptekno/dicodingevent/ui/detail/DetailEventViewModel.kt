@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.siaptekno.dicodingevent.data.response.Event
 import com.siaptekno.dicodingevent.data.response.EventDetailResponse
-import com.siaptekno.dicodingevent.data.response.EventResponse
-import com.siaptekno.dicodingevent.data.response.ListEventsItem
 import com.siaptekno.dicodingevent.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
