@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DicodingEvent"
         tools:targetApi="31">
         <activity
+            android:name=".ui.detail.Testing"
+            android:exported="false" />
+        <activity
             android:name=".ui.detail.DetailEventActivity"
             android:exported="false" />
         <activity
