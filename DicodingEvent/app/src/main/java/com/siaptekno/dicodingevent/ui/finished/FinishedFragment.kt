@@ -35,7 +35,7 @@ class FinishedFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = FinishedAdapter()
+        adapter = FinishedAdapter(requireContext())
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvFinishedEvent.layoutManager = layoutManager
         binding.rvFinishedEvent.adapter = adapter

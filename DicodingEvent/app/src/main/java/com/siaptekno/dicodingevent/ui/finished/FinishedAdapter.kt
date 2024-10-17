@@ -1,5 +1,6 @@
 package com.siaptekno.dicodingevent.ui.finished
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +12,9 @@ import com.bumptech.glide.Glide
 import com.siaptekno.dicodingevent.data.response.ListEventsItem
 import com.siaptekno.dicodingevent.databinding.ItemFinishedBinding
 import com.siaptekno.dicodingevent.ui.detail.DetailEventActivity
+import com.siaptekno.dicodingevent.ui.upcoming.UpcomingAdapter.Companion.DIFF_CALLBACK
 
-class FinishedAdapter : ListAdapter<ListEventsItem, FinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FinishedAdapter(private val context: Context) : ListAdapter<ListEventsItem, FinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(val binding: ItemFinishedBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem?) {
             binding.tvFinishedEventName.text = event?.name
@@ -32,18 +34,14 @@ class FinishedAdapter : ListAdapter<ListEventsItem, FinishedAdapter.MyViewHolder
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
-
+        // Handle item click
         holder.itemView.setOnClickListener {
-            if (event != null) {
-                Log.d("FinishedAdapter", "Navigating to detail with EVENT_ID: ${event.id}")
-                val intent = Intent(holder.itemView.context, DetailEventActivity::class.java).apply {
-                    putExtra("EVENT_ID", event.id)
-                }
-                holder.itemView.context.startActivity(intent)
-            } else {
-                Log.e("FinishedAdapter", "Event is null, cannot navigate to detail.")
+            val intent = Intent(context, DetailEventActivity::class.java).apply {
+                putExtra("EVENT_ID", event.id) // Pass the event ID
             }
+            context.startActivity(intent)
         }
+        
     }
 
     companion object {

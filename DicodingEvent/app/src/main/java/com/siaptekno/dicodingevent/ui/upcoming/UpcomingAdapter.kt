@@ -2,6 +2,7 @@ package com.siaptekno.dicodingevent.ui.upcoming
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -34,13 +35,13 @@ class UpcomingAdapter(private val context: Context) : ListAdapter<ListEventsItem
         val event = getItem(position)
         holder.bind(event)
 
-        // Handle item click
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DetailEventActivity::class.java).apply {
-                putExtra("EVENT_ID", event.id) // Pass the event ID
+                putExtra("EXTRA_EVENT_ID", event.id)
             }
             context.startActivity(intent)
         }
+
     }
 
     companion object {
