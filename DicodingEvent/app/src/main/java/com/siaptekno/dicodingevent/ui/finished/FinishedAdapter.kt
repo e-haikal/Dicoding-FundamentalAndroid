@@ -40,6 +40,7 @@ class FinishedAdapter(private val context: Context) : ListAdapter<ListEventsItem
             }
             context.startActivity(intent)
         }
+        
     }
 
     companion object {
