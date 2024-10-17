@@ -4,11 +4,12 @@ Repository for [Documentations Dicoding - Belajar Fundamental Aplikasi Android](
 ## Purpose
 Record Project Belajar Fundamental Aplikasi Android from [Dicoding Indonesia](https://www.dicoding.com/)
 
-## Screenshots Final Submission
+## Screenshots Submission
+### DicodingEvent App
 ![MyImage](DicodingEvent/screenshots/DicodingEvent.jpg)
 
 ## Features
-Final Submission Checklists
+DicodingEvent App Submission Checklists
 - [x] Display upcoming events page
 - [x] Display finished events page
 - [x] Display details page
@@ -17,7 +18,7 @@ Final Submission Checklists
 - [x] Display loading indicator
 
 ## Installation
-Download and install beta version [here](https://github.com/e-haikal/Dicoding-FundamentalAndroid/releases/download/v1.0.0/DicodingEvent_1.0.0.apk).
+- Download and install DicodingEvent app [here](https://github.com/e-haikal/Dicoding-FundamentalAndroid/releases/download/v1.0.0/DicodingEvent_1.0.0.apk).
 
 ## Author
 - **Asman Haikal**
