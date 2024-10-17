@@ -47,8 +47,10 @@ class DetailEventActivity : AppCompatActivity(), View.OnClickListener {
     //            binding.tvBeginTime.text = event.beginTime
                 binding.tvDataBeginTime.text = event.beginTime
     //            binding.tvQuota.text = event.quota.toString()
-                val quotaValue = event.quota.toString()
-                binding.tvDataQuota.text = "Sisa Quota $quotaValue"
+                val quotaValue = event.quota.toInt()
+                val registrantsValue = event.registrants.toInt()
+                val remainingQuota = quotaValue - registrantsValue
+                binding.tvDataQuota.text = "Sisa Quota $remainingQuota"
                 binding.tvDataDescription.text = HtmlCompat.fromHtml(event.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
                 Glide.with(this)
                     .load(event.mediaCover)
