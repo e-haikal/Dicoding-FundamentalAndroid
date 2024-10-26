@@ -14,6 +14,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.siaptekno.simplenotif.databinding.ActivityMainBinding
 import android.Manifest
+import android.app.PendingIntent
+import android.content.Intent
+import android.net.Uri
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -47,21 +50,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendNotification(title: String, message: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://dicoding.com"))
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        )
+
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(title)
             .setSmallIcon(R.drawable.ic_notification_active)
             .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSubText(getString(R.string.notification_subtext))
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
+                NotificationManager.IMPORTANCE_HIGH
+            ). apply {
+                description =  "Notification channel description"
+                enableVibration(true)
+                vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+            }
             builder.setChannelId(CHANNEL_ID)
             notificationManager.createNotificationChannel(channel)
         }
@@ -73,8 +90,8 @@ class MainActivity : AppCompatActivity() {
 
 
     companion object {
-        private const val NOTIFICATION_ID = 1
-        private const val CHANNEL_ID = "channel_01"
+        private const val NOTIFICATION_ID = 2
+        private const val CHANNEL_ID = "channel_02"
         private const val CHANNEL_NAME = "dicoding channel"
     }
 }
