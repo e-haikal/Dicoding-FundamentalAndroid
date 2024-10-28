@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Headings -->
+    <dimen name="heading_h1">24sp</dimen>
+    <dimen name="heading_h2">20sp</dimen>
+    <dimen name="heading_h3">18sp</dimen>
+
+    <!-- Body Text -->
+    <dimen name="body_text">16sp</dimen>
+    <dimen name="secondary_text">14sp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="button_primary">16sp</dimen>
+    <dimen name="button_secondary">14sp</dimen>
+
+    <!-- Captions and Labels -->
+    <dimen name="small_text">12sp</dimen>
+    <dimen name="caption">10sp</dimen>
+</resources>
