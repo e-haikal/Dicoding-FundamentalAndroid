@@ -1,11 +1,32 @@
 <resources>
     <string name="app_name">DicodingEvent</string>
-
     <string name="title_home">Home</string>
     <string name="title_upcoming">Upcoming</string>
     <string name="title_finished">Finished</string>
+    <string name="category">Category</string>
+    <string name="owner">oleh: %1$s</string>
+    <string name="quota">sisa kuota: %1$s</string>
+    <string name="dicoding_event">Dicoding Event</string>
+    <string name="upcoming">Upcoming Events</string>
+    <string name="finished">Finished Events</string>
+    <string name="begin">Terbuka Hingga: %1$s</string>
+    <string name="quota_detail">Sisa Kuota: %1$d</string>
+    <string name="location">Lokasi: %1$s</string>
+    <string name="search_hint">Cari event</string>
+    <string name="description">Deskripsi</string>
+    <string name="register">Register</string>
+    <string name="recommendation">Recommendation event for you!</string>
+    <string name="detail">Detail Event</string>
+    <string name="search">Search Event</string>
+    <string name="no_internet">Tidak ada koneksi internet</string>
+    <string name="check_internet">Mohon periksa koneksi internet Anda.</string>
+    <string name="no_event">Event tidak ditemukan</string>
+    <string name="no_result">Maaf, tidak ada event yang sesuai dengan pencarian Anda.</string>
+    <string name="favorite">Favorite</string>
+    <string name="setting">Setting</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="enable_dark_mode">Enable dark mode</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>

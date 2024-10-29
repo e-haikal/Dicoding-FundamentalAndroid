@@ -16,4 +16,8 @@
     <!-- Captions and Labels -->
     <dimen name="small_text">12sp</dimen>
     <dimen name="caption">10sp</dimen>
+
+    <!-- Screen margin default, match Android Design guidelines -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

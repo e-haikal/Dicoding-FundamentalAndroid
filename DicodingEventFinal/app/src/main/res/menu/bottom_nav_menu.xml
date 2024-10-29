@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_outlined_24"
+        android:title="@string/title_home"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/navigation_upcoming"
-        android:icon="@drawable/ic_upcoming_filled_24"
-        android:title="@string/title_upcoming" />
+        android:icon="@drawable/ic_upcoming_outlined_24"
+        android:title="@string/title_upcoming"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/navigation_finished"
-        android:icon="@drawable/ic_finished_filled_24"
-        android:title="@string/title_finished" />
+        android:icon="@drawable/ic_finished_outlined_24"
+        android:title="@string/title_finished"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_favorite_outlined_24"
+        android:title="@string/favorite"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_setting_outlined_24"
+        android:title="@string/setting"
+        app:showAsAction="never"/>
 
 </menu>

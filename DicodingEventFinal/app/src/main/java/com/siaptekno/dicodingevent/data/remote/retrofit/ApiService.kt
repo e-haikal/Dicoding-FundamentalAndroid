@@ -1,25 +1,32 @@
 package com.siaptekno.dicodingevent.data.remote.retrofit
 
-import com.siaptekno.dicodingevent.data.remote.response.EventDetailResponse
-import com.siaptekno.dicodingevent.data.remote.response.EventResponse
-import retrofit2.Call
-import retrofit2.http.*
+import com.siaptekno.dicodingevent.data.remote.response.ResponseDetail
+import com.siaptekno.dicodingevent.data.remote.response.ResponseListEvent
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
-// Define the ApiService interface for API calls
+
 interface ApiService {
-    // Define a GET request to fetch a list of events
-    @GET("events") // Specify the endpoint with a path parameter
-    // Define a query parameter for filtering active events
-    fun getEvents(
-        // Define query parameters
-        @Query("active") active: Int,
-        @Query("limit") limit: Int = 40
-    ): Call<EventResponse> // Return a Call object for the API response
+    @GET("/events")
+    suspend fun getFinished(@Query("active") active: Int = 0): ResponseListEvent
 
+    @GET("/events")
+    suspend fun getUpcoming(@Query("active") active: Int = 1): ResponseListEvent
 
-    // New function to fetch event details by ID
-    @GET("events/{id}")
-    fun getEventById(
-        @Path("id") eventId: Int
-    ): Call<EventDetailResponse> // This assumes the response is a single event item
+    @GET("/events")
+    suspend fun getUpcoming5(@Query("active") active: Int = 1,
+                             @Query("limit") limit: Int = 5
+    ): ResponseListEvent
+
+    @GET("/events")
+    suspend fun getFinished5(@Query("active") active: Int = 0,
+                             @Query("limit") limit: Int = 5
+    ): ResponseListEvent
+
+    @GET("/events/{id}")
+    suspend fun getEvent(@Path("id") id: String): ResponseDetail
+
+    @GET("/events")
+    suspend fun searchEvents(@Query("q") query: String): ResponseListEvent
 }

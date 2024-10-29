@@ -53,5 +53,6 @@ class UpcomingViewModel : ViewModel() {
 }*/
 
 class UpcomingViewModel(private val eventRepository: EventRepository): ViewModel() {
+    // Fetch events directly from the repository
     fun getEvents() = eventRepository.getEvents()
 }
