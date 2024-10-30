@@ -1,58 +1,49 @@
 package com.siaptekno.dicodingevent.ui.upcoming
 
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.siaptekno.dicodingevent.data.EventRepository
-import com.siaptekno.dicodingevent.data.remote.response.EventResponse
 import com.siaptekno.dicodingevent.data.remote.response.ListEventsItem
-import com.siaptekno.dicodingevent.data.remote.retrofit.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.siaptekno.dicodingevent.data.Result
+import android.util.Log
 
-/*
 
-class UpcomingViewModel : ViewModel() {
-    private val _upcomingEvents = MutableLiveData<List<ListEventsItem>>()
-    val upcomingEvents: LiveData<List<ListEventsItem>> = _upcomingEvents
+class UpcomingViewModel(private val eventRepository: EventRepository) : ViewModel() {
+
+    private val _events = MediatorLiveData<List<ListEventsItem>>()
+    val events: LiveData<List<ListEventsItem>> get() = _events
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
 
     companion object {
         private const val TAG = "UpcomingViewModel"
     }
 
-    init {
-        fetchUpcomingEvents()
-    }
 
-    private fun fetchUpcomingEvents() {
+    fun loadUpcomingEvents() {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getEvents(active = 1)
 
-        client.enqueue(object : Callback<EventResponse> {
-            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    _upcomingEvents.value = response.body()?.listEvents
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+        val result = eventRepository.loadUpcomingEvents()
+
+        _events.addSource(result) { result ->
+            when (result) {
+                is Result.Loading -> _isLoading.value = true
+                is Result.Success -> {
+                    _isLoading.value = false
+                    _events.value = result.data
                 }
-
+                is Result.Error -> {
+                    _isLoading.value = false
+                    _errorMessage.value = result.error
+                    Log.d(TAG, "Error fetching events: ${result.error}")
+                }
             }
-
-            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
+        }
     }
-}*/
-
-class UpcomingViewModel(private val eventRepository: EventRepository): ViewModel() {
-    // Fetch events directly from the repository
-    fun getEvents() = eventRepository.getEvents()
 }

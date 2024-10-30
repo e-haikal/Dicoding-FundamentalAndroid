@@ -1,21 +1,24 @@
-package com.siaptekno.dicodingevent.ui.finished
+package com.siaptekno.dicodingevent.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.siaptekno.dicodingevent.R
 import com.siaptekno.dicodingevent.data.remote.response.ListEventsItem
-import com.siaptekno.dicodingevent.databinding.ItemFinishedBinding
-import androidx.recyclerview.widget.DiffUtil
+import com.siaptekno.dicodingevent.databinding.ItemFinishedHomeBinding
 
-class FinishedAdapter(private val onItemClick: (ListEventsItem) -> Unit ): ListAdapter<ListEventsItem, FinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
-    class MyViewHolder(val binding: ItemFinishedBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: ListEventsItem, onItemClick: (ListEventsItem) -> Unit) {
-            binding.txtNameFinished.text = event.name
-            Glide.with(binding.imgFinished.context)
+
+class HomeFinishedAdapter(private val onItemClick: (ListEventsItem) -> Unit ): ListAdapter<ListEventsItem, HomeFinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    class MyViewHolder(val binding: ItemFinishedHomeBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(event: ListEventsItem, onItemClick:(ListEventsItem) -> Unit ) {
+            Glide.with(binding.imgFinishedHome.context)
                 .load(event.imageLogo)
-                .into(binding.imgFinished)
+                .into(binding.imgFinishedHome)
+            binding.nameFinishedHome.text = event.name
+            binding.ownerFinishedHome.text = binding.root.context.getString(R.string.owner, event.ownerName)
 
             binding.root.setOnClickListener {
                 onItemClick(event)
@@ -24,8 +27,7 @@ class FinishedAdapter(private val onItemClick: (ListEventsItem) -> Unit ): ListA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding =
-            ItemFinishedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemFinishedHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -40,7 +42,7 @@ class FinishedAdapter(private val onItemClick: (ListEventsItem) -> Unit ): ListA
                 oldItem: ListEventsItem,
                 newItem: ListEventsItem
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
@@ -51,4 +53,6 @@ class FinishedAdapter(private val onItemClick: (ListEventsItem) -> Unit ): ListA
             }
         }
     }
+
+
 }

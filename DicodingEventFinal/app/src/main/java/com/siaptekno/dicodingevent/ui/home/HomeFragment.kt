@@ -1,4 +1,4 @@
-package com.siaptekno.dicodingevent.ui.upcoming
+package com.siaptekno.dicodingevent.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -15,47 +15,66 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.siaptekno.dicodingevent.R
-import com.siaptekno.dicodingevent.databinding.FragmentUpcomingBinding
+import com.siaptekno.dicodingevent.databinding.FragmentHomeBinding
 import com.siaptekno.dicodingevent.ui.detail.DetailActivity
+import com.siaptekno.dicodingevent.ui.search.SearchActivity
 
-class UpcomingFragment : Fragment() {
 
-    private var _binding: FragmentUpcomingBinding? = null
-    private lateinit var adapter: UpcomingAdapter
-    private lateinit var viewModel: UpcomingViewModel
+class HomeFragment : Fragment() {
 
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var upcomingAdapter: HomeUpcomingAdapter
+    private lateinit var finishedAdapter: HomeFinishedAdapter
+    private lateinit var viewModel: HomeViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, UpcomingFactory.getInstance(requireContext())).get(UpcomingViewModel::class.java)
-
-        adapter = UpcomingAdapter { event ->
+        viewModel = ViewModelProvider(this, HomeFactory.getInstance(requireContext())).get(HomeViewModel::class.java)
+        upcomingAdapter = HomeUpcomingAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra("EVENT_ID", event.id)
             startActivity(intent)
         }
-        binding.rvUpcoming.adapter = adapter
-        binding.rvUpcoming.layoutManager = LinearLayoutManager(requireContext())
+        finishedAdapter = HomeFinishedAdapter{ event ->
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            intent.putExtra("EVENT_ID", event.id)
+            startActivity(intent)
+        }
+        binding.viewPagerUpcoming.adapter = upcomingAdapter
+        binding.rvFinishedHome.adapter = finishedAdapter
+        binding.rvFinishedHome.layoutManager = LinearLayoutManager(requireContext())
 
+        binding.searchBar.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
 
         observeViewModel()
 
+
+        viewModel.finishedEvents.observe(viewLifecycleOwner) { events ->
+            finishedAdapter.submitList(events)
+        }
+
         if (isNetworkAvailable()) {
-            viewModel.loadUpcomingEvents()
+            viewModel.loadUpcoming5()
+            viewModel.loadFinished5()
         } else {
             showAlertDialog()
         }
+
     }
 
     private fun observeViewModel() {
@@ -63,8 +82,12 @@ class UpcomingFragment : Fragment() {
             showLoading(isLoading)
         }
 
-        viewModel.events.observe(viewLifecycleOwner) { events ->
-            adapter.submitList(events)
+        viewModel.upcomingEvents.observe(viewLifecycleOwner) { events ->
+            upcomingAdapter.submitList(events)
+        }
+
+        viewModel.finishedEvents.observe(viewLifecycleOwner) {events ->
+            finishedAdapter.submitList(events)
         }
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
@@ -73,6 +96,7 @@ class UpcomingFragment : Fragment() {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -91,6 +115,7 @@ class UpcomingFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
+
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

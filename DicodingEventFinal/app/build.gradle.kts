@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dicodingeventapp"
+    namespace = "com.siaptekno.dicodingevent"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dicodingeventapp"
+        applicationId = "com.siaptekno.dicodingevent"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.siaptekno.dicodingevent.ui.finished
+package com.siaptekno.dicodingevent.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -9,33 +9,29 @@ import com.siaptekno.dicodingevent.data.remote.response.ListEventsItem
 import com.siaptekno.dicodingevent.data.Result
 import android.util.Log
 
-class FinishedViewModel(private val eventRepository: EventRepository) : ViewModel() {
-
-    private val _events = MediatorLiveData<List<ListEventsItem>>()
-    val events: LiveData<List<ListEventsItem>> get() = _events
-
+class SearchViewModel(private val eventRepository: EventRepository): ViewModel() {
+    private val _searchEvent = MediatorLiveData<List<ListEventsItem>>()
+    val searchEvent: LiveData<List<ListEventsItem>> get() = _searchEvent
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
-
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-
     companion object {
-        private const val TAG = "FinishedViewModel"
+        private const val TAG = "SearchViewModel"
     }
 
-    fun loadFinishedEvents() {
+    fun searchEvent(q: String) {
         _isLoading.value = true
 
-        val result = eventRepository.loadFinishedEvents()
+        val result = eventRepository.searchEvent(q)
 
-        _events.addSource(result) { result ->
+        _searchEvent.addSource(result) { result ->
             when (result) {
                 is Result.Loading -> _isLoading.value = true
                 is Result.Success -> {
                     _isLoading.value = false
-                    _events.value = result.data
+                    _searchEvent.value = result.data
                 }
                 is Result.Error -> {
                     _isLoading.value = false
@@ -45,4 +41,5 @@ class FinishedViewModel(private val eventRepository: EventRepository) : ViewMode
             }
         }
     }
+
 }

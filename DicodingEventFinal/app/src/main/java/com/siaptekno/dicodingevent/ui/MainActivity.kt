@@ -1,20 +1,20 @@
 package com.siaptekno.dicodingevent.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.dicodingeventapp.R
-import com.example.dicodingeventapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.siaptekno.dicodingevent.R
 import com.siaptekno.dicodingevent.databinding.ActivityMainBinding
+import com.siaptekno.dicodingevent.ui.setting.SettingFactory
+import com.siaptekno.dicodingevent.ui.setting.SettingPreferences
+import com.siaptekno.dicodingevent.ui.setting.SettingViewModel
+import com.siaptekno.dicodingevent.ui.setting.dataStore
 
 class MainActivity : AppCompatActivity() {
 
