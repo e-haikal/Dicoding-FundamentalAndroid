@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +32,18 @@ class HomeFragment : Fragment() {
 
     private val autoSlideHandler = Handler(Looper.getMainLooper())
     private var currentPage = 0
-    private val autoSlideInterval: Long = 3000 // 3 seconds
+    private val autoSlideInterval: Long = 2000 // 2 seconds
+
+    // Add this runnable for auto-sliding
+    private val autoSlideRunnable = object : Runnable {
+        override fun run() {
+            if (upcomingAdapter.itemCount > 0) {
+                binding.viewPagerUpcoming.currentItem = currentPage
+                currentPage = (currentPage + 1) % upcomingAdapter.itemCount
+            }
+            autoSlideHandler.postDelayed(this, autoSlideInterval)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,6 +100,9 @@ class HomeFragment : Fragment() {
 
         viewModel.upcomingEvents.observe(viewLifecycleOwner) { events ->
             upcomingAdapter.submitList(events)
+
+            currentPage = 0
+            autoSlideHandler.postDelayed(autoSlideRunnable, autoSlideInterval)
         }
 
         viewModel.finishedEvents.observe(viewLifecycleOwner) {events ->
@@ -106,6 +119,8 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        autoSlideHandler.removeCallbacks(autoSlideRunnable) // Stop auto-slide
+
         _binding = null
     }
 
