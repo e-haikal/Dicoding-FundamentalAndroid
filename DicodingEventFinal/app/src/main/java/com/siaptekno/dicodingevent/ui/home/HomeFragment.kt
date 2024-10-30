@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
     private val autoSlideHandler = Handler(Looper.getMainLooper())
     private var currentPage = 0
-    private val autoSlideInterval: Long = 2000 // 2 seconds
+    private val autoSlideInterval: Long = 3000 // 3 seconds
 
     // Add this runnable for auto-sliding
     private val autoSlideRunnable = object : Runnable {
