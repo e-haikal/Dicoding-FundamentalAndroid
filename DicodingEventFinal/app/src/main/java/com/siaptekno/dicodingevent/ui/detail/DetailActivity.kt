@@ -98,10 +98,8 @@ class DetailActivity : AppCompatActivity() {
         val formattedDate = date?.let { outputFormat.format(it) }
 
         binding.nameDetail.text = event.name
-        binding.categoryDetail.text = event.category
         binding.descriptionDetail.text = HtmlCompat.fromHtml(event.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
         binding.ownerDetail.text = binding.root.context.getString(R.string.owner, event.ownerName)
-        binding.locationDetail.text = binding.root.context.getString(R.string.location, event.cityName)
         binding.waktuDetail.text = binding.root.context.getString(R.string.begin, formattedDate)
         binding.quotaDetail.text = binding.root.context.getString(R.string.quota_detail, event.quota - event.registrants)
         Glide.with(binding.imgDetail.context)

@@ -26,23 +26,15 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/category_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/tv_border"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="2dp"
-                android:text="@string/category"
-                android:textSize="14sp" />
-
-            <TextView
                 android:id="@+id/name_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
                 android:text="@string/app_name"
-                android:textColor="@color/purple_500"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -50,6 +42,7 @@
                 android:id="@+id/owner_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/owner"
@@ -62,49 +55,42 @@
                 android:layout_gravity="center"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/waktu_detail"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:gravity="center_horizontal"
-                android:text="@string/begin"
-                android:textSize="14sp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/quota_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    style="@style/BodyText"
+                    android:textStyle="bold"
+                    tools:text="Sisa Quota: Example" />
 
-            <TextView
-                android:id="@+id/quota_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"
-                android:text="@string/quota_detail"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/waktu_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    style="@style/BodyText"
+                    tools:text="2024 10 20" />
 
-            <TextView
-                android:id="@+id/location_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"
-                android:text="@string/location"
-                android:textSize="14sp" />
+            </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="4dp"
-                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/description"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView

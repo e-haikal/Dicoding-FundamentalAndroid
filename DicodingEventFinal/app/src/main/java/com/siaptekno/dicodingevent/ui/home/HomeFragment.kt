@@ -6,6 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +31,9 @@ class HomeFragment : Fragment() {
     private lateinit var finishedAdapter: HomeFinishedAdapter
     private lateinit var viewModel: HomeViewModel
 
+    private val autoSlideHandler = Handler(Looper.getMainLooper())
+    private var currentPage = 0
+    private val autoSlideInterval: Long = 3000 // 3 seconds
 
     override fun onCreateView(
         inflater: LayoutInflater,
